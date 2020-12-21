@@ -27,7 +27,7 @@ public class ForgotPasswordController {
             return userByEmail.map(userResponse -> {
                 // Send an email to the user
                 // Email logic
-                emailService.sendSimpleMessage("todeepakmehra@gmail.com","Test", "Test");
+                emailService.sendSimpleMessage("your_email@gmail.com","Test", "Test");
                 System.out.println(userResponse.getUser().getEmail());
                 System.out.println(userResponse.getUser().getId());
                 return "Message sent successfully";
