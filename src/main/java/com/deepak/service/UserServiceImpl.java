@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public Mono<UserResponse> findUserByEmail(String email) {
+        LOGGER.info("Fetching user by email " + email);
         return webClient.get().retrieve().bodyToMono(UserResponse.class);
     }
     

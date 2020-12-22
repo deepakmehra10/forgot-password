@@ -10,30 +10,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+import java.util.logging.Logger;
+
 @RestController
 public class ForgotPasswordController {
     
-    @Autowired
-    EmailService emailService;
+    private static final Logger LOGGER = Logger.getLogger(ForgotPasswordController.class.getName());
     
     @Autowired
-    UserService userService;
+    private EmailService emailService;
+    
+    @Autowired
+    private UserService userService;
     
     @PostMapping
-    Mono<String> forgotPassword(@RequestBody User user) {
-        if(user.getEmail().equals("test@test.com")) {
+    public Mono<String> forgotPassword(@Valid @RequestBody User user) {
+        if (user.getEmail().equals("test@test.com")) {
             Mono<UserResponse> userByEmail = userService.findUserByEmail("");
-    
+            
             return userByEmail.map(userResponse -> {
-                // Send an email to the user
-                // Email logic
-                emailService.sendSimpleMessage("your_email@gmail.com","Test", "Test");
-                System.out.println(userResponse.getUser().getEmail());
-                System.out.println(userResponse.getUser().getId());
+                LOGGER.info("Sending email to " + user.getEmail());
+                emailService.sendSimpleMessage("your_email@gmail.com", "Test", "Test");
                 return "Message sent successfully";
             });
         }
         
+        LOGGER.info("User with this email id not found.");
         return Mono.just("User not found");
     }
 }

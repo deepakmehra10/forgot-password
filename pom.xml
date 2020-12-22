@@ -189,7 +189,7 @@
         <version>${jacoco-maven-plugin.version}</version>
         <configuration>
           <excludes>
-            <exclude>**/UserApplication.*</exclude>
+            <exclude>**/ForgotPasswordApplication.*</exclude>
           </excludes>
         </configuration>
         <executions>
